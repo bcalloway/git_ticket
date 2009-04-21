@@ -28,7 +28,7 @@ default_values = <<-VALUES
 Ticket::GitTicket.account = "mylogin"		
 
 #replace with your valid Git Token (from the "account" section in GitHub)
-Ticket::GitTicket.token   = "8adfbd9f9360350125226ac46c27c6fd"
+Ticket::GitTicket.token   = "45fth678536ac46c27c6fd"
 
 # replace with the name of your repo
 Ticket::GitTicket.project= "myproject"					
