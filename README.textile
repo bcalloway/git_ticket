@@ -1,0 +1,47 @@
+h1. GitTicket
+
+<p>A port of "QuickTicket":http://github.com/voodootikigod/quickticket/tree to use GitHub's Issue tracking instead of Lighthouse.  GitTicket is a Rails plugin that utilizes the GitHub API to submit issues on GitHub within a Rails application. This will create a little icon on the bottom right of the application screen (which scrolls) that will display a pane when clicked. This will allow the user to provide their comments/issues/bug into the pane which is then submitted to your GitHub account for the project.  The plugin uses the Libcurl bindings for Ruby (Curb) to handle the authenticated http post call to GitHub.</p>
+
+This plugin makes use of AuthenticatedSystem (restful_authentication) and thus requires a user to be logged-in in order to use it.  Since there is no flash warning about this out-of-the-box, you can simply add this fix to the application layout in the head:
+
+<pre><code>
+<style>
+  <% if !logged_in? %>
+    #bug_button {display: none}
+  <% end %>
+</style>
+</code></pre>
+
+This will hide the feedback button unless the user is logged-in.
+
+h2. Dependencies
+
+* restful_authentication
+* Curb, "http://curb.rubyforge.org":http://curb.rubyforge.org/
+* jQuery, "http://jquery.com":http://jquery.com
+* jQuery Facebox plugin, "http://famspam.com/facebox":http://famspam.com/facebox
+* jQuery Form plugin, "http://www.malsup.com/jquery/form/":http://www.malsup.com/jquery/form/
+
+<p>All jQuery files will need to be installed in your project as well as referenced in your application layout.</p>
+_Note: If you do not use restful_authentication, it can be turned off by removing the line <code>include AuthenticatedSystem</code> from ticket.rb__
+
+h2. What gets installed
+
+Once you have the plugin installed, you will find the following two new assets created into your application
+
+* ./public/stylesheets/gitticket.css - This holds the default (and configurable) styling for the application, update it as you see fit or configure it not to be loaded.
+* ./public/javascripts/gitticket.js  - This holds the necessary javascript, written to work with the jQuery library.
+
+Also new parameters have been added to your environment.rb file which will allow you to configure GitTicket.
+
+h2. What you need to do
+
+Add the following route to your routes.rb file:
+
+<pre><code>
+  map.create_ticket "create_ticket", :controller=>"tickets", :action=>"create"
+</code></pre>
+
+h2.  Credit
+
+<p>This plugin originated as a fork of "QuickTicket":http://github.com/voodootikigod/quickticket/tree, and was updated for use with Rails 2.3.2 and the newer Lighhouse Ruby wrapper.  Otherwise, you would have gotten a "NameError unintialized constant" error.  After GitHub released their Issues feature and v2.0 of the API, I ported the project to use GitHub's Issue tracking.</p>
